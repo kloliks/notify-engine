@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from eventloop import EventLoop
+from notify_engine import EventLoop
 
 
 def run(m_publish):

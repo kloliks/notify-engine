@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from interfaces import EventLoopInterface
+from .interface import EventLoopInterface
 
 from kombu import Queue, Exchange, Connection, Producer
 
