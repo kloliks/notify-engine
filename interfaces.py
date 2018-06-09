@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class EventPublishOptsComponent(metaclass=ABCMeta):
+class EventPublishOptsComponent:
     __metaclass__ = ABCMeta
 
     @staticmethod
@@ -9,7 +9,7 @@ class EventPublishOptsComponent(metaclass=ABCMeta):
         '''Возвращает ttl сообщения'''
 
 
-class EventSerializerComponent():
+class EventSerializerComponent:
     __metaclass__ = ABCMeta
 
     @abstractmethod
