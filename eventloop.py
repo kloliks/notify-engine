@@ -6,10 +6,10 @@ from kombu import Queue, Exchange, Connection, Producer
 
 
 class EventLoop(EventLoopInterface):
-    def __init__(self, broker, **kwargs):
+    def __init__(self, broker, queue=None, **kwargs):
         conn = Connection(broker)
         name = 'default'
-        queue = Queue(name, Exchange(name), name, conn)
+        queue = queue or Queue(name, Exchange(name), name, conn)
         queue.declare()
         producer = Producer(conn, queue.exchange, queue.routing_key)
 
