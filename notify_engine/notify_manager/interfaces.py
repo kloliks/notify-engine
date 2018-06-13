@@ -29,3 +29,23 @@ class EventInterface(EventSerializerComponent, EventPublishOptsComponent):
     @abstractmethod
     def event_type():
         '''Возвращает тип события'''
+
+
+class NotifyManagerInterface:
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def run(self):
+        '''Запускает цикл чтения событий из очереди'''
+
+    @abstractmethod
+    def stop(self):
+        '''Остановка цикла чтения событий'''
+
+    @abstractmethod
+    def subscribe(self, event: EventInterface, handle):
+        '''Подписаться на событие'''
+
+    @abstractmethod
+    def publish(self, event: EventInterface):
+        '''Опубликовать событие в очереди'''
