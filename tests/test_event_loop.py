@@ -19,7 +19,7 @@ class TestEventLoop(unittest.TestCase):
 
         ev.subscribe(handle)
         ev.run()
-        self.assertTrue(ok['ok'])
+        self.assertTrue(ok['called'])
 
 
 if __name__ == '__main__':
