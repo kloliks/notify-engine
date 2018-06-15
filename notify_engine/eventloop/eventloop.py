@@ -13,21 +13,21 @@ class EventLoop(EventLoopInterface):
         queue.declare()
         producer = Producer(conn, queue.exchange, queue.routing_key)
 
-        self.conn = conn
-        self.queue = queue
-        self.producer = producer
-        self.subscribers = set()
+        self._conn = conn
+        self._queue = queue
+        self._producer = producer
+        self._subscribers = set()
 
     def _pop_messages(self):
-        message = self.queue.get(no_ack=True)
+        message = self._queue.get(no_ack=True)
         while self.running and message:
             yield message
-            message = self.queue.get(no_ack=True)
+            message = self._queue.get(no_ack=True)
 
     def run(self):
         self.running = True
         for message in self._pop_messages():
-            for handler in self.subscribers.copy():
+            for handler in self._subscribers.copy():
                 handler(message.decode())
                 if not self.running:
                     break
@@ -36,7 +36,7 @@ class EventLoop(EventLoopInterface):
         self.running = False
 
     def subscribe(self, handler):
-        self.subscribers.add(handler)
+        self._subscribers.add(handler)
 
     def publish(self, event):
-        self.producer.publish(event)
+        self._producer.publish(event)
