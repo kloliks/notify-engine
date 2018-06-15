@@ -30,12 +30,22 @@ class TestEvents(unittest.TestCase):
         self.eq_message_test(ev0, ev4)
         self.eq_message_test(ev2, ev4)
         self.eq_message_test(ev3, ev4)
+        
+        serialize_data = ev0.serialize()
+        serialize_data['data'] = []
+        ev5 = CommonEvent.deserialize(serialize_data)
+        self.assertEqual(ev5, None)
+        
+        serialize_data = ev0.serialize()
+        serialize_data['type'] = 'Unknown type'
+        ev5 = CommonEvent.deserialize(serialize_data)
+        self.assertEqual(ev5, None)
 
     def test_events_meta(self):
         '''Test CommonEvent publish opts'''
         ev = CommonEvent()
         self.assertEqual(ev.meta()['ttl'], ev.ttl())
-        
+
 
 if __name__ == '__main__':
     unittest.main()

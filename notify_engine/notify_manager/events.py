@@ -1,3 +1,5 @@
+import logging
+
 from .interfaces import (
     EventInterface,
     EventSerializerComponent,
@@ -5,11 +7,14 @@ from .interfaces import (
 )
 
 
+logger = logging.getLogger('notify_manager')
+
+
 class CommonPublishOpts(EventPublishOptsComponent):
     @staticmethod
     def ttl():
         return None
-    
+
     @staticmethod
     def meta() -> dict:
         return {
@@ -27,9 +32,17 @@ class CommonEventSerialize(EventSerializerComponent):
     @classmethod
     def deserialize(cls, serialize_data):
         if serialize_data.get('type') != cls.event_type():
+            logger.warning('CommonEventSerialize: {} != {}. event({})'.format(
+                serialize_data.get('type'), cls.event_type(), serialize_data
+            ))
             return None
 
         if not isinstance(serialize_data.get('data'), dict):
+            logger.warning((
+                'CommonEventSerialize: serialize_data["data"] != dict. '
+                'event({})'.format(
+                    serialize_data
+            )))
             return None
 
         ev = cls()
