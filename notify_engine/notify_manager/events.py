@@ -9,6 +9,12 @@ class CommonPublishOpts(EventPublishOptsComponent):
     @staticmethod
     def ttl():
         return None
+    
+    @staticmethod
+    def meta() -> dict:
+        return {
+            'ttl': CommonPublishOpts.ttl(),
+        }
 
 
 class CommonEventSerialize(EventSerializerComponent):

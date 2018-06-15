@@ -38,5 +38,8 @@ class EventLoop(EventLoopInterface):
     def subscribe(self, handler):
         self._subscribers.add(handler)
 
-    def publish(self, event):
-        self._producer.publish(event)
+    def publish(self, event, publish_opts=None):
+        meta={}
+        if publish_opts:
+            meta['ttl'] = publish_opts.get('ttl') or None
+        self._producer.publish(event, **meta)

@@ -9,7 +9,7 @@ class EventLoopInterface:
         '''Подписаться на события'''
 
     @abstractmethod
-    def publish(self, message):
+    def publish(self, message, publish_opts=None):
         '''Опубликовать событие'''
 
     @abstractmethod

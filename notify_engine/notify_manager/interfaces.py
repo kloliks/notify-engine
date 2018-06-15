@@ -5,8 +5,14 @@ class EventPublishOptsComponent:
     __metaclass__ = ABCMeta
 
     @staticmethod
+    @abstractmethod
     def ttl():
         '''Возвращает ttl сообщения'''
+        
+    @staticmethod
+    @abstractmethod
+    def meta() -> dict:
+        '''Возвращает опции публикации словарём'''
 
 
 class EventSerializerComponent:
